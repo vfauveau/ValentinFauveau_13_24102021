@@ -1,7 +1,9 @@
 import React, { useState } from "react";
 import Nav from "./Nav";
+import { useDispatch } from "react-redux";
 
 function SignIn() {
+    const dispatch = useDispatch()
     const [credentials, setCredentials] = useState({ email: "", password: "" });
     const [token, setToken] = useState("");
 
@@ -15,10 +17,10 @@ function SignIn() {
     };
 
     // Login attempt / get user Data
-    const handleSubmit = (event) => {
+    const handleSubmit = async (event) => {
         event.preventDefault();
 
-        fetch("http://localhost:3001/api/v1/user/login", {
+        await fetch("http://localhost:3001/api/v1/user/login", {
             method: "POST",
             headers: {
                 "Content-Type": "application/json",
@@ -31,10 +33,13 @@ function SignIn() {
                 setToken(data.body.token);
                 console.log(token);
             })
+            .then(post())
             .catch((error) => {
                 console.error("Error:", error);
             });
+    };
 
+    function post() {
         // get user Data using token
         fetch("http://localhost:3001/api/v1/user/profile", {
             method: "POST",
@@ -51,7 +56,8 @@ function SignIn() {
             .catch((error) => {
                 console.error("Error:", error);
             });
-    };
+    }
+
     return (
         <React.Fragment>
             <Nav />
@@ -72,9 +78,7 @@ function SignIn() {
                             <input type="checkbox" id="remember-me" />
                             <label htmlFor="remember-me">Remember me</label>
                         </div>
-                        <button to="/user.html" className="sign-in-button">
-                            Sign In
-                        </button>
+                        <button onClick={() => dispatch({ type: 'LOGIN' })} className="sign-in-button">Sign In</button>
                     </form>
                 </section>
             </main>
