@@ -3,7 +3,8 @@ import Nav from "./Nav";
 import chatIcon from "../img/icon-chat.png";
 import moneyIcon from "../img/icon-money.png";
 import securityIcon from "../img/icon-security.png";
-import Counter from "../features/counter/Counter"
+
+/** Homepage Component */
 function Homepage() {
     return (
         <React.Fragment>
@@ -36,7 +37,6 @@ function Homepage() {
                         <p>We use top of the line encryption to make sure your data and money is always safe.</p>
                     </div>
                 </section>
-                <Counter></Counter>
             </main>
         </React.Fragment>
     );

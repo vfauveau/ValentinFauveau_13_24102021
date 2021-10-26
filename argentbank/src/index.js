@@ -11,17 +11,17 @@ import { Provider } from "react-redux";
 import User from "./Components/User";
 
 ReactDOM.render(
-    <React.StrictMode>
-        <Provider store={store}>
+    <Provider store={store}>
+        <React.StrictMode>
             <Router>
                 <Switch>
                     <Route exact path="/" component={Homepage} />
-                    <Route exact path="/sign-in.html" component={SignIn} />
-                    <Route path="/user.html" component={User} />
+                    <Route exact path="/login" component={SignIn} />
+                    <Route exact path="/profile" component={User} />
                 </Switch>
             </Router>
             <Footer />
-        </Provider>
-    </React.StrictMode>,
+        </React.StrictMode>
+    </Provider>,
     document.getElementById("root")
 );
