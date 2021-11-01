@@ -1,62 +1,32 @@
-import React, { useState } from "react";
+import React from "react";
 import Nav from "./Nav";
 import { useDispatch } from "react-redux";
-
+import { useHistory } from "react-router-dom";
+import { login } from "../App/store";
+import { store } from "../App/store";
 function SignIn() {
-    const dispatch = useDispatch()
-    const [credentials, setCredentials] = useState({ email: "", password: "" });
-    const [token, setToken] = useState("");
-
+    const dispatch = useDispatch();
+    const history = useHistory();
     /** Set the credentials value to the input value */
     const handleInputChange = (event) => {
-        const value = event.target.value;
-        setCredentials({
-            ...credentials,
-            [event.target.name]: value,
-        });
+        const email = document.getElementsByName("email")[0];
+        const password = document.getElementsByName("password")[0];
+        dispatch({ type: "CREDENTIALS_CHANGE", email:email.value, password:password.value });
     };
+
+    function isCallYes(message) {
+        if (message === "User successfully logged in") {
+            history.push("/profile");
+        }
+    }
 
     // Login attempt / get user Data
     const handleSubmit = async (event) => {
         event.preventDefault();
-
-        await fetch("http://localhost:3001/api/v1/user/login", {
-            method: "POST",
-            headers: {
-                "Content-Type": "application/json",
-            },
-            body: JSON.stringify(credentials),
-        })
-            .then((response) => response.json())
-            .then((data) => {
-                console.log("Success:", data);
-                setToken(data.body.token);
-                console.log(token);
-            })
-            .then(post())
-            .catch((error) => {
-                console.error("Error:", error);
-            });
+        await login();
+        localStorage.setItem("jwt", store.token);
+        dispatch({ type: "LOGIN", token: localStorage.getItem("jwt") });
     };
-
-    function post() {
-        // get user Data using token
-        fetch("http://localhost:3001/api/v1/user/profile", {
-            method: "POST",
-            headers: {
-                "Content-Type": "application/json",
-                Authorization: `Bearer ${token}`,
-            },
-            body: JSON.stringify(credentials),
-        })
-            .then((response) => response.json())
-            .then((data) => {
-                console.log("Success:", data);
-            })
-            .catch((error) => {
-                console.error("Error:", error);
-            });
-    }
 
     return (
         <React.Fragment>
@@ -78,7 +48,7 @@ function SignIn() {
                             <input type="checkbox" id="remember-me" />
                             <label htmlFor="remember-me">Remember me</label>
                         </div>
-                        <button onClick={() => dispatch({ type: 'LOGIN' })} className="sign-in-button">Sign In</button>
+                        <button className="sign-in-button">Sign In</button>
                     </form>
                 </section>
             </main>
