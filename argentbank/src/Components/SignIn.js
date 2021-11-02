@@ -1,31 +1,31 @@
 import React from "react";
 import Nav from "./Nav";
-import { useDispatch } from "react-redux";
+import { useDispatch, useStore } from "react-redux";
 import { useHistory } from "react-router-dom";
-import { login } from "../App/store";
-import { store } from "../App/store";
+import { fetchLogin } from "../App/calls";
 function SignIn() {
+    const store = useStore();
     const dispatch = useDispatch();
     const history = useHistory();
     /** Set the credentials value to the input value */
-    const handleInputChange = (event) => {
+    const handleInputChange = () => {
         const email = document.getElementsByName("email")[0];
         const password = document.getElementsByName("password")[0];
-        dispatch({ type: "CREDENTIALS_CHANGE", email:email.value, password:password.value });
+        dispatch({ type: "CREDENTIALS_CHANGE", email: email.value, password: password.value });
     };
 
-    function isCallYes(message) {
-        if (message === "User successfully logged in") {
-            history.push("/profile");
-        }
-    }
+    // go to profile page
+    const goToProfilePage = () => {
+        history.push("/profile");
+    };
 
     // Login attempt / get user Data
     const handleSubmit = async (event) => {
         event.preventDefault();
-        await login();
-        localStorage.setItem("jwt", store.token);
-        dispatch({ type: "LOGIN", token: localStorage.getItem("jwt") });
+            // temporaire    // temporaire    // temporaire
+        if ((await fetchLogin(store)) !== "") {
+            goToProfilePage();
+        }
     };
 
     return (
@@ -42,7 +42,7 @@ function SignIn() {
                         </div>
                         <div className="input-wrapper">
                             <label htmlFor="password">Password</label>
-                            <input name="password" onChange={handleInputChange} type="password" id="password" />
+                            <input autoComplete="on" name="password" onChange={handleInputChange} type="password" id="password" />
                         </div>
                         <div className="input-remember">
                             <input type="checkbox" id="remember-me" />
