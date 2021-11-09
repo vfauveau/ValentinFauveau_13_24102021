@@ -1,7 +1,10 @@
 import React from "react";
 import argentBankLogo from "../img/argentBankLogo.png";
-
+import { useSelector } from "react-redux";
+import UserName from "./UserName";
 function User() {
+const firstName = useSelector(state => state.userInfo.firstName)
+const lastName = useSelector(state => state.userInfo.lastName)
     return (
         <React.Fragment>
             <nav className="main-nav">
@@ -12,7 +15,7 @@ function User() {
                 <div>
                     <a className="main-nav-item" href="/">
                         <i className="fa fa-user-circle"></i>
-                        Tony
+                        {firstName}
                     </a>
                     <a className="main-nav-item" href="/">
                         <i className="fa fa-sign-out"></i>
@@ -21,14 +24,7 @@ function User() {
                 </div>
             </nav>
             <main className="main bg-dark">
-                <div className="header">
-                    <h1>
-                        Welcome back
-                        <br />
-                        Tony Jarvis!
-                    </h1>
-                    <button className="edit-button">Edit Name</button>
-                </div>
+                <UserName firstName={firstName} lastName={lastName}/>
                 <h2 className="sr-only">Accounts</h2>
                 <section className="account">
                     <div className="account-content-wrapper">

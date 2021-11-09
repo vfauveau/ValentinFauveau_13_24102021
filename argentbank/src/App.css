@@ -275,7 +275,22 @@ body {
   background-color: #00bc77;
   color: #fff;
 }
-
+.edit-name-button{
+  width: 120px;
+  height: 30px;
+  text-align: center;
+  border: 1px blue inset;
+  color: blue;
+  background-color: white;
+  margin: 7px;
+}
+.edit-name-input-text{
+  width: 180px;
+  height: 30px;
+  margin: 7px;
+  padding: 10px;
+  font-size: 20px;
+}
 @media (min-width: 720px) {
   .account {
     flex-direction: row;

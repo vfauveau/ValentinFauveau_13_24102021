@@ -23,9 +23,8 @@ function SignIn() {
     const handleSubmit = async (event) => {
         event.preventDefault();
             // temporaire    // temporaire    // temporaire
-        if ((await fetchLogin(store)) !== "") {
-            goToProfilePage();
-        }
+            fetchLogin(store)
+            goToProfilePage()
     };
 
     return (
