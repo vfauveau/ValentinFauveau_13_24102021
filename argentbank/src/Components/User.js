@@ -3,6 +3,7 @@ import argentBankLogo from "../img/argentBankLogo.png";
 import { useSelector } from "react-redux";
 import UserName from "./UserName";
 function User() {
+
 const firstName = useSelector(state => state.userInfo.firstName)
 const lastName = useSelector(state => state.userInfo.lastName)
     return (

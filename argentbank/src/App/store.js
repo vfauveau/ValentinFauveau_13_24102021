@@ -9,7 +9,7 @@ const initialState = {
     },
     firstName: "",
     lastName: "",
-    rememberMe : false,
+    rememberMeChecked : false,
 };
 
 function credStateReducer(state = initialState, action) {

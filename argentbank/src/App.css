@@ -286,10 +286,11 @@ body {
 }
 .edit-name-input-text{
   width: 180px;
-  height: 30px;
+  height: 18px;
   margin: 7px;
   padding: 10px;
   font-size: 20px;
+  border : 1px grey inset;
 }
 @media (min-width: 720px) {
   .account {
