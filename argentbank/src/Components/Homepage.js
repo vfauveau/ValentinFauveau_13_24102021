@@ -3,12 +3,15 @@ import Nav from "./Nav";
 import chatIcon from "../img/icon-chat.png";
 import moneyIcon from "../img/icon-money.png";
 import securityIcon from "../img/icon-security.png";
-
+import { useDispatch } from "react-redux";
+import { useHistory } from "react-router";
 /** Homepage Component */
 function Homepage() {
+    const dispatch = useDispatch();
+    const history = useHistory();
     return (
         <React.Fragment>
-            <Nav/>
+            <Nav />
             <main>
                 <div className="hero">
                     <section className="hero-content">

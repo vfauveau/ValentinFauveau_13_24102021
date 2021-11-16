@@ -8,7 +8,7 @@ import Footer from "./Components/Footer";
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 import { store } from "./App/store";
 import { Provider } from "react-redux";
-import User from "./Components/User";
+import Profile from "./Components/Profile";
 
 ReactDOM.render(
     <Provider store={store}>
@@ -17,7 +17,7 @@ ReactDOM.render(
                 <Switch>
                     <Route exact path="/" component={Homepage} />
                     <Route exact path="/login" component={SignIn} />
-                    <Route exact path="/profile" component={User} />
+                    <Route exact path="/profile" component={Profile} />
                 </Switch>
             </Router>
             <Footer />

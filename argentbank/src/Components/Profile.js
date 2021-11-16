@@ -1,11 +1,22 @@
 import React from "react";
 import argentBankLogo from "../img/argentBankLogo.png";
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
+import { tokenAssign } from "../App/calls";
 import UserName from "./UserName";
-function User() {
 
-const firstName = useSelector(state => state.userInfo.firstName)
-const lastName = useSelector(state => state.userInfo.lastName)
+// profile page component
+function Profile() {
+    const firstName = useSelector((state) => state.userInfo.firstName);
+    const lastName = useSelector((state) => state.userInfo.lastName);
+    const dispatch = useDispatch();
+    if ("firstName" in localStorage) {
+        dispatch({ type: "ASSIGN_NAMES", firstName: localStorage.getItem("firstName"), lastName: localStorage.getItem("lastName") });
+        dispatch(tokenAssign(localStorage.getItem("jwt")))
+    }
+
+    function logout() {
+        localStorage.clear();
+    }
     return (
         <React.Fragment>
             <nav className="main-nav">
@@ -18,14 +29,14 @@ const lastName = useSelector(state => state.userInfo.lastName)
                         <i className="fa fa-user-circle"></i>
                         {firstName}
                     </a>
-                    <a className="main-nav-item" href="/">
+                    <a onClick={logout} className="main-nav-item" href="/">
                         <i className="fa fa-sign-out"></i>
                         Sign Out
                     </a>
                 </div>
             </nav>
             <main className="main bg-dark">
-                <UserName firstName={firstName} lastName={lastName}/>
+                <UserName firstName={firstName} lastName={lastName} />
                 <h2 className="sr-only">Accounts</h2>
                 <section className="account">
                     <div className="account-content-wrapper">
@@ -62,4 +73,4 @@ const lastName = useSelector(state => state.userInfo.lastName)
     );
 }
 
-export default User;
+export default Profile;

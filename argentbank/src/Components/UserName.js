@@ -1,5 +1,4 @@
 import React from "react";
-//import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 
 function UserName(props) {
@@ -24,11 +23,11 @@ function UserName(props) {
         return string[0].toUpperCase() + string.slice(1);
     }
     // check if the inputs are empty // else Put request + state update (firstName - lastName)
-    function filterValues() {
+    async function filterValues() {
         if (inputs[0].value === "" || inputs[1].value === "") {
             alert("Veuillez remplir les deux champs");
         } else {
-            apiPutName(capitalizeFirstLetter(inputs[0].value), capitalizeFirstLetter(inputs[1].value));
+            await apiPutName(capitalizeFirstLetter(inputs[0].value), capitalizeFirstLetter(inputs[1].value));
         }
     }
 
@@ -43,9 +42,9 @@ function UserName(props) {
                 body: JSON.stringify({ firstName: firstName, lastName: lastName }),
             });
             const data = await response.json();
-            dispatch({ type: "ASSIGN_NAMES", firstName: data.body.firstName, lastName: data.body.lastName });
             localStorage.setItem("firstName", data.body.firstName);
             localStorage.setItem("lastName", data.body.lastName);
+            dispatch({ type: "ASSIGN_NAMES", firstName: data.body.firstName, lastName: data.body.lastName });
             hideNameEdit();
         } catch (error) {
             console.log(error);
