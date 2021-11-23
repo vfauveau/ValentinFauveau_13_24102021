@@ -1,32 +1,39 @@
 import React, { useState } from "react";
 import Nav from "./Nav";
-import { useDispatch, useStore } from "react-redux";
+import { useStore } from "react-redux";
 import { useHistory } from "react-router-dom";
 import ErrorMessage from "./ErrorMessage";
 import { userFetching, userResolved, userRejected, tokenAssign } from "../App/calls";
-import { userFetched, userInfo } from "../App/selectors";
+import { userFetched } from "../App/selectors";
 
 // sign-in page react component
 function SignIn() {
     const store = useStore();
-    const dispatch = useDispatch();
     const history = useHistory();
     const [ErrorIsShown, setErrorIsShown] = useState(false);
+    const inputs = document.getElementsByTagName("input");
 
-    /** Set the credentials value to the input value */
-    const handleInputChange = () => {
-        const email = document.getElementsByName("email")[0];
-        const password = document.getElementsByName("password")[0];
-        dispatch({ type: "CREDENTIALS_CHANGE", email: email.value, password: password.value });
-    };
+    // check if the checkbox is checked / set the value in the state and localstorage
+    function checkRememberMe(store) {
+        if (inputs[2].checked) {
+            store.dispatch({ type: "CHECK_REMEMBER_ME" });
+            localStorage.setItem("rememberMe", true);
+        }
+    }
 
-    // a mettre dans le signIn ?
+    // POST REQUEST SENDING CREDENTIALS TO THE API
+    // GETTING A RESPONSE => displays errors to the user
+    // Or proceed to login (and request user info the API)
     async function fetchLogin(store) {
+        const credentials = {
+            email: inputs[0].value,
+            password: inputs[1].value,
+        };
         const status = userFetched(store.getState()).status;
-        const credentials = userInfo(store.getState()).credentials;
         if (status === "pending" || status === "updating") {
             return;
         }
+        checkRememberMe(store)
         store.dispatch(userFetching());
         try {
             const response = await fetch("http://localhost:3001/api/v1/user/login", {
@@ -59,7 +66,7 @@ function SignIn() {
         }
     }
 
-    // POST RETRIEVE USER INFO
+    // POST REQUEST USING JWT TOKEN TO RETRIEVE USER INFOFMATION
     const getUserInfo = async (store, token) => {
         // get user Data using token
         store.dispatch(userFetching());
@@ -105,14 +112,14 @@ function SignIn() {
                         <ErrorMessage ErrorIsShown={ErrorIsShown} />
                         <div className="input-wrapper">
                             <label htmlFor="username">Username</label>
-                            <input name="email" onChange={handleInputChange} type="text" id="username" />
+                            <input name="email" type="text" id="username" />
                         </div>
                         <div className="input-wrapper">
                             <label htmlFor="password">Password</label>
-                            <input autoComplete="on" name="password" onChange={handleInputChange} type="password" id="password" />
+                            <input name="password" type="password" id="password" />
                         </div>
                         <div className="input-remember">
-                            <input type="checkbox" id="remember-me" />
+                            <input type="checkbox" name="remember" id="remember-me" />
                             <label htmlFor="remember-me">Remember me</label>
                         </div>
                         <button className="sign-in-button">Sign In</button>

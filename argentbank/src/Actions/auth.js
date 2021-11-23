@@ -1,15 +1,5 @@
-export const CREDENTIALS_CHANGE = "CREDENTIALS_CHANGE";
 export const ASSIGN_NAMES = "ASSIGN_NAMES"
-export const credentialsChange = (cred) => {
-    return {
-        type: CREDENTIALS_CHANGE,
-        credentials: {
-            email: cred.email,
-            password: cred.password,
-        },
-    };
-};
-
+export const CHECK_REMEMBER_ME = "CHECK_REMEMBER_ME"
 export const AssignNames = (user) => {
     return {
         type: ASSIGN_NAMES,
@@ -17,3 +7,9 @@ export const AssignNames = (user) => {
         lastName: user.lastName,
     };
 };
+export const rememberBe = () => {
+    return {
+        type : CHECK_REMEMBER_ME,
+        rememberMeChecked : true
+    }
+}

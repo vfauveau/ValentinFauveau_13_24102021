@@ -3,12 +3,14 @@ import Nav from "./Nav";
 import chatIcon from "../img/icon-chat.png";
 import moneyIcon from "../img/icon-money.png";
 import securityIcon from "../img/icon-security.png";
-import { useDispatch } from "react-redux";
-import { useHistory } from "react-router";
+import { useHistory } from "react-router-dom";
 /** Homepage Component */
 function Homepage() {
-    const dispatch = useDispatch();
     const history = useHistory();
+
+    if (localStorage.getItem("rememberMe")) {
+        history.push("/profile");
+    }
     return (
         <React.Fragment>
             <Nav />

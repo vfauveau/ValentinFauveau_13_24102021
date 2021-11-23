@@ -3,25 +3,12 @@ import { combineReducers, createStore } from "redux";
 // state
 const initialState = {
     userIsLogged: false,
-    credentials: {
-        email: "",
-        password: "",
-    },
     firstName: "",
     lastName: "",
-    rememberMeChecked : false,
+    rememberMeChecked: false,
 };
 
-function credStateReducer(state = initialState, action) {
-    if (action.type === "CREDENTIALS_CHANGE") {
-        return {
-            ...state,
-            credentials: {
-                email: action.email,
-                password: action.password,
-            },
-        };
-    }
+function displayReducer(state = initialState, action) {
     if (action.type === "ASSIGN_NAMES") {
         return {
             ...state,
@@ -29,11 +16,17 @@ function credStateReducer(state = initialState, action) {
             lastName: action.lastName,
         };
     }
+    if (action.type === "CHECK_REMEMBER_ME") {
+        return {
+            ...state,
+            rememberMeChecked: true,
+        };
+    }
     return state;
 }
 
 const reducer = combineReducers({
-    userInfo: credStateReducer,
+    userInfo: displayReducer,
     fetching: fetchingReducer,
 });
 

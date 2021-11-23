@@ -30,7 +30,8 @@ function UserName(props) {
             await apiPutName(capitalizeFirstLetter(inputs[0].value), capitalizeFirstLetter(inputs[1].value));
         }
     }
-
+    // PUT Request using the JWT Token, and assigning the new names to the API
+    // May need to adjust the errors
     async function apiPutName(firstName, lastName) {
         try {
             const response = await fetch("http://localhost:3001/api/v1/user/profile", {

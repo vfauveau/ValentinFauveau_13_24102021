@@ -9,6 +9,8 @@ function Profile() {
     const firstName = useSelector((state) => state.userInfo.firstName);
     const lastName = useSelector((state) => state.userInfo.lastName);
     const dispatch = useDispatch();
+    
+    // Checks if localstorage is filled, if yes, the names are displayed using the localstorage values
     if ("firstName" in localStorage) {
         dispatch({ type: "ASSIGN_NAMES", firstName: localStorage.getItem("firstName"), lastName: localStorage.getItem("lastName") });
         dispatch(tokenAssign(localStorage.getItem("jwt")))
