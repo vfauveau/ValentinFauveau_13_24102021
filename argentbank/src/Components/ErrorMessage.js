@@ -2,8 +2,8 @@ import React from "react";
 import { useSelector } from "react-redux";
 // component that is used to display the error message to the user
 function ErrorMessageTrue() {
-    const message = useSelector(state => state.fetching.data.message)
-    return <p style={{color : "red"}}>{message}</p>;
+    const message = useSelector((state) => state.fetching.data.message);
+    return <p style={{ color: "red" }}>{message}</p>;
 }
 function ErrorMessageFalse() {
     return null;

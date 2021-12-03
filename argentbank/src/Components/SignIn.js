@@ -6,7 +6,7 @@ import ErrorMessage from "./ErrorMessage";
 import { userFetching, userResolved, userRejected, tokenAssign } from "../App/calls";
 import { userFetched } from "../App/selectors";
 
-// sign-in page react component
+// Sign-in page react component
 function SignIn() {
     const store = useStore();
     const history = useHistory();
@@ -53,10 +53,8 @@ function SignIn() {
                 // get infos regarding user using store & token (post request)
                 getUserInfo(store, token);
             } else if (data.status === 400) {
-                console.log(data);
                 return setErrorIsShown(true);
             } else if (data.status === 500) {
-                console.log(data);
                 return setErrorIsShown(true);
             }
         } catch (error) {

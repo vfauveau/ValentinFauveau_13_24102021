@@ -31,7 +31,6 @@ function UserName(props) {
         }
     }
     // PUT Request using the JWT Token, and assigning the new names to the API
-    // May need to adjust the errors
     async function apiPutName(firstName, lastName) {
         try {
             const response = await fetch("http://localhost:3001/api/v1/user/profile", {

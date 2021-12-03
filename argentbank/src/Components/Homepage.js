@@ -4,6 +4,7 @@ import chatIcon from "../img/icon-chat.png";
 import moneyIcon from "../img/icon-money.png";
 import securityIcon from "../img/icon-security.png";
 import { useHistory } from "react-router-dom";
+
 /** Homepage Component */
 function Homepage() {
     const history = useHistory();
